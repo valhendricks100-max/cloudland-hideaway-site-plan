@@ -89,7 +89,16 @@
     .panel-inner{width:100%;}
     .map-area{position:relative;}
   }
-</style>
+.hotspot.category-glow .ring {
+  opacity: 1;
+  stroke: #FFD978;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px #FFD978);
+}
+
+.hotspot.category-glow .bloom {
+  opacity: 0.95;
+}</style>
 </head>
 <body>
 <div class="wrap">
@@ -223,6 +232,7 @@
         const show = (f === 'all') || (cat === f);
         n.classList.toggle('fade-out', !show);
         n.classList.toggle('fade-in', show);
+        n.classList.toggle('category-glow', f !== 'all' && cat === f);
       });
     });
   });
