@@ -115,6 +115,7 @@
     <div class="controls">
       <div class="filters" id="filters">
         <button data-filter="all" class="active">All</button>
+        <button data-filter="storm">Storm</button>
         <button data-filter="cloud">Cloud Cabins</button>
         <button data-filter="moon">Moon Cabins</button>
         <button data-filter="amenity">Amenities</button>
@@ -198,6 +199,16 @@
   let activeKey = null;
   const websiteUrl = 'https://www.cloudlandhideaway.com';
 const cabinLinks = {storm:'/storm',nimbus:'/nimbus',cirrus:'/cirrus',stratus:'/stratus',cumulus:'/cumulus',mooncabin1:'/eclipse',mooncabin2:'/halo',mooncabin3:'/crescent',mooncabin4:'/luna'};
+  const amenityLinks = {
+  gym: {anchor:'saunagym', label:'Explore the Wellness Gym'},
+  firepit1: {anchor:'pickleballfirepit', label:'Explore the Fire Pits'},
+  firepit2: {anchor:'pickleballfirepit', label:'Explore the Fire Pits'},
+  sauna1: {anchor:'saunagym', label:'Explore the Saunas'},
+  sauna2: {anchor:'saunagym', label:'Explore the Saunas'},
+  pool: {anchor:'pool', label:'Explore the Pool'},
+  common: {anchor:'commonhouse', label:'Explore the Common House'},
+  pickleball: {anchor:'pickleballfirepit', label:'Explore Pickleball'}
+};
 
   spots.forEach(function(s){
     registry[s.key] = s;
@@ -219,7 +230,17 @@ const cabinLinks = {storm:'/storm',nimbus:'/nimbus',cirrus:'/cirrus',stratus:'/s
     panelKicker.textContent = kickerNames[o.cat] || 'On the Property';
     panelTitle.textContent = o.name;
     panelBody.textContent = o.desc || '';
-    if(cabinLinks[key]){panelLink.href=websiteUrl+cabinLinks[key];panelLink.hidden=false;}else{panelLink.hidden=true;}
+    if(cabinLinks[key]){
+  panelLink.href = websiteUrl + cabinLinks[key];
+  panelLink.textContent = 'Explore Cabin';
+  panelLink.hidden = false;
+}else if(amenityLinks[key]){
+  panelLink.href = websiteUrl + '/experiences#' + amenityLinks[key].anchor;
+  panelLink.textContent = amenityLinks[key].label;
+  panelLink.hidden = false;
+}else{
+  panelLink.hidden = true;
+}
     panel.classList.add('open');
   }
   function closePanel(){
